@@ -8,12 +8,13 @@ import { addProduct, removeAllProduct, removeProduct, updateProducts } from '../
 
 const CartPage = () => {
 
-	const products = useSelector(state => state.basket.products)
+	const { products, count } = useSelector(state => state.basket)
 	const dispatch = useDispatch()
 
 	useEffect(() => {
 		dispatch(updateProducts())
 	}, [])
+
 
 	return (
 		<Container>
@@ -65,7 +66,7 @@ const CartPage = () => {
 								Итого:
 							</Box>
 							<Box>
-								{products.reduce((acc, el) => acc + el.price, 0)}$
+								{products.reduce((acc, el) => acc + el.price * el.count, 0).toFixed(2)}$
 							</Box>
 						</Box>
 						<Box sx={{ position: 'absolute', right: 0, bottom: 0 }}>

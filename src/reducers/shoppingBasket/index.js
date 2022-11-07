@@ -33,10 +33,12 @@ export const shoppingBasketSlice = createSlice({
     },
     removeProduct(state, action) {
       state.count--;
-      for (let product of state.products) {
+      for (let productId in state.products) {
+        const product = state.products[productId]
         if (product.id === action.payload) {
-          if (product.count > 1)
-            product.count--
+          if (product.count > 1) {
+            product.count--;
+          }
           else
             state.products.splice(state.products.indexOf(product), 1)
         }
@@ -64,9 +66,10 @@ export const shoppingBasketSlice = createSlice({
             state.products[productId] = { ...newProduct, count: state.products[productId].count }
           }
     }
-    )}
+    )
+  }
 
-  });
+});
 
 export const { addProduct, removeProduct, removeAllProduct } = shoppingBasketSlice.actions;
 
